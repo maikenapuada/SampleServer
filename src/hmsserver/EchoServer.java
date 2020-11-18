@@ -7,7 +7,10 @@ package hmsserver;
 
 import java.io.*;
 import ocsf.server.*;
+import Utilities.*;
+import Classes.*;
 import java.sql.*;
+import javafx.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -58,7 +61,69 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
-    this.sendToAllClients(msg);
+    
+    //map entry  means login attempt
+    if(msg instanceof Pair)
+    {
+        Pair p =(Pair) msg;
+        try {
+            //verifylogin attempt
+            client.sendToClient(Utilities.QueryRequest.VerifyLogin(p));
+        } catch (IOException ex) {
+            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    if(msg instanceof PatientModule)
+    {
+        PatientModule pm =(PatientModule)msg;
+        if(pm.getcommand().equals("add"))
+        {
+            try {
+                client.sendToClient(Utilities.QueryRequest.AddPatient(pm.getPatient()));
+            } catch (IOException ex) {
+                Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(pm.getcommand().equals("modify"))
+        {
+             try {
+                client.sendToClient(Utilities.QueryRequest.ModifyPatient(pm.getPatient()));
+            } catch (IOException ex) {
+                Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    if(msg instanceof EmployeeModule){
+        EmployeeModule em =(EmployeeModule)msg;
+        if(em.getcommand().equals("add"))
+        {
+            try {
+                client.sendToClient(Utilities.QueryRequest.AddEmployee(em.getEmployee()));
+            } catch (IOException ex) {
+                Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if(em.getcommand().equals("modify"))
+        {
+             try {
+                client.sendToClient(Utilities.QueryRequest.ModifyEmployee(em.getEmployee()));
+            } catch (IOException ex) {
+                Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    //test
+    if("login".equals((String)msg))
+    {
+        try {
+            //verifylogin attempt
+            client.sendToClient("verified bro");
+        } catch (IOException ex) {
+            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
   }
     
   /**
