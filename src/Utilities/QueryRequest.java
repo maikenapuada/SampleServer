@@ -17,6 +17,23 @@ import java.util.logging.Logger;
  * @author maiken
  */
 public class QueryRequest {
+    public static String RegisterUser(UserRegistration ur)
+    {
+        String verify="";
+//        try{
+//            Connection con=ConnectionProvider.getCon();
+//            System.out.println("Connected to Microsft SQL SERVER:Registering user..");
+//          // PreparedStatement myStmt= con.prepareStatement("Select ")
+//        }
+//         catch(SQLException ex) 
+//        {
+//            System.out.println("Error: User registration..");
+//            ex.printStackTrace();
+//            return "error";
+//        }
+        return verify;
+    }
+    
     public static String VerifyLogin(Pair user)
     {
         String verify="";
