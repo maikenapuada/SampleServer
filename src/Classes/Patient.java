@@ -9,52 +9,53 @@ package Classes;
  *
  * @author maiken
  */
-import java.util.Date;
+import java.time.*;
 import javafx.beans.property.SimpleStringProperty;
+import java.io.Serializable;
 
-public class Patient {
+public class Patient implements Serializable{
     
     private int ID;
-    private final SimpleStringProperty firstName;
-    private final SimpleStringProperty lastName;
-    private Date dob;
-    private final SimpleStringProperty address;
-    private final SimpleStringProperty phoneNumber;
+    private String firstName;
+    private String lastName;
+    private LocalDate dob;
+    private String address;
+    private String phoneNumber;
     
     
-    public Patient(int ID,String firstName, String lastName , Date dob, String address, String phoneNumber)
+    public Patient(int ID,String firstName, String lastName , LocalDate dob, String address, String phoneNumber)
     {
         this.ID = ID;
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dob = dob;
-        this.address = new SimpleStringProperty(address);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.address = address;
+        this.phoneNumber =phoneNumber;
     }
-    public Patient(String firstName, String lastName , Date dob, String address, String phoneNumber){
+    public Patient(String firstName, String lastName , LocalDate dob, String address, String phoneNumber){
         
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dob = dob;
-        this.address = new SimpleStringProperty(address);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
+        this.address = address;
+        this.phoneNumber =phoneNumber;
     }
     
     
     public void setFirstName(String firstName){
-        this.firstName.set(firstName);
+        this.firstName= firstName;
     }
-    public void setLastName(String department){
-        this.lastName.set(department);
+    public void setLastName(String lastname){
+        this.lastName =lastname;
     }
-    public void setDOB(Date dob){
+    public void setDOB(LocalDate dob){
         this.dob = dob;
     }
     public void setAddress(String address){
-        this.address.set(address);   
+        this.address = address;   
     }
     public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber.set(phoneNumber);   
+        this.phoneNumber= phoneNumber;   
     }
     
     
@@ -62,18 +63,18 @@ public class Patient {
         return ID;
     }
     public String getFirstName(){
-        return firstName.get();
+        return firstName;
     }
     public String getLastName(){
-        return lastName.get();
+        return lastName;
     }
     public String getAddress(){
-        return address.get();
+        return address;
     }
     public String getDOB(){
         return dob.toString();
     }
     public String getPhoneNumber(){
-        return phoneNumber.get();
+        return phoneNumber;
     }
 }

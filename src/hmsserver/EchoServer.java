@@ -13,6 +13,7 @@ import java.sql.*;
 import javafx.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
 /**
  *
  * @author maiken
@@ -60,19 +61,38 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
-    System.out.println("Message received: " + msg + " from " + client);
+   System.out.println("Message received: "  + " from " + client);
     
-    //map entry  means login attempt
-    if(msg instanceof Pair)
+    
+    if(msg instanceof UserModule)
     {
-        Pair p =(Pair) msg;
-        try {
-            //verifylogin attempt
-            client.sendToClient(Utilities.QueryRequest.VerifyLogin(p));
-        } catch (IOException ex) {
-            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        UserModule um= (UserModule)msg;
+      
+        switch (um.getCommand()) {
+           case "login":
+               try {
+                   //verifylogin attempt
+                   client.sendToClient(Utilities.QueryRequest.VerifyLogin(um));
+               } catch (IOException ex) {
+                   Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+               }  break;
+           case "register":
+               try {
+                   //verifylogin attempt
+                   client.sendToClient(Utilities.QueryRequest.RegisterUser(um));
+               } catch (IOException ex) {
+                   Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+               }  break;
+           default:
+               try {
+                   client.sendToClient("invalidusermodule");
+               } catch (IOException ex) {
+                   Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+               }  break;
+       }
+        
     }
+  
     
     if(msg instanceof PatientModule)
     {
@@ -85,12 +105,20 @@ public class EchoServer extends AbstractServer
                 Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if(pm.getcommand().equals("modify"))
+        else if(pm.getcommand().equals("modify"))
         {
              try {
                 client.sendToClient(Utilities.QueryRequest.ModifyPatient(pm.getPatient()));
             } catch (IOException ex) {
                 Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+        {
+            try {
+                client.sendToClient("invalidpatientmodule");
+            } catch (IOException ex) {
+            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -113,7 +141,16 @@ public class EchoServer extends AbstractServer
                 Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else{
+            try {
+                client.sendToClient("invalidemployeemodule");
+            } catch (IOException ex) {
+                Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
+    
+    
     //test
     if("login".equals((String)msg))
     {

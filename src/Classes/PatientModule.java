@@ -6,18 +6,19 @@
 package Classes;
 
 import javafx.util.*;
+import java.io.Serializable;
 /**
  *
  * @author maiken
  */
-public class PatientModule {
+public class PatientModule implements Serializable{
     private Patient patient; 
     private String command;
     
-    public PatientModule(Pair p)
+    public PatientModule(String c, Patient p)
     {
-        patient=(Patient) p.getValue();
-        command= (String)p.getKey();
+        patient=p;
+        command= c;
     }
     
     public Patient getPatient(){

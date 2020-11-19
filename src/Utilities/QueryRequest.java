@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author maiken
  */
 public class QueryRequest {
-    public static String RegisterUser(UserRegistration ur)
+    public static String RegisterUser(UserModule ur)
     {
         String verify="";
         //check if ID is valid
@@ -107,7 +107,7 @@ public class QueryRequest {
         return verify;
     }
     
-    public static String VerifyLogin(Pair user)
+    public static String VerifyLogin(UserModule user)
     {
         String verify="";
         try{
@@ -116,8 +116,8 @@ public class QueryRequest {
             
             PreparedStatement myStmt = con.prepareStatement("Select * from Users where username = ? and "
                     + "password = ?");
-            myStmt.setString(1, user.getKey().toString());
-            myStmt.setString(2, user.getValue().toString());
+            myStmt.setString(1, user.getUsername());
+            myStmt.setString(2, user.getPassword());
             ResultSet res = myStmt.executeQuery();
             if(res.getRow()!=1)
             {   
@@ -161,12 +161,20 @@ public class QueryRequest {
             Connection con=ConnectionProvider.getCon();
             System.out.println("Connected to Microsft SQL SERVER:Adding Patient..");
             
-            PreparedStatement myStmt = con.prepareStatement("Insert into Patients Values(?,?,?,?,?)");
+            PreparedStatement myStmt = con.prepareStatement("Insert into Patients(firstname,lastname,dob,addr,phonenumber)"
+                    + " Values(?,?,?,?,?)");
             myStmt.setString(1, p.getFirstName());
             myStmt.setString(2, p.getLastName());
-            myStmt.setString(3, p.getDOB());
+            myStmt.setString(3, p.getDOB().toString());
             myStmt.setString(4, p.getAddress());
             myStmt.setString(5, p.getPhoneNumber());
+            System.out.println(p.getFirstName());
+            System.out.println(p.getLastName());
+            System.out.println(p.getDOB());
+            System.out.println(p.getAddress());
+            System.out.println(p.getPhoneNumber());
+           
+                
             int count = myStmt.executeUpdate();
             if(count>0)
             {

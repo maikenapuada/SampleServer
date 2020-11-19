@@ -9,16 +9,23 @@ package Classes;
  *
  * @author maiken
  */
-public class UserRegistration {
+public class UserModule {
+    private String command;     //either log in or register
     private String username;
     private String password;
     private int ID;
     
-    public UserRegistration(String username, String Password, int ID)
+    public UserModule(String username, String Password, int ID)
     {
         this.username= username;
-        this.password=password;
+        this.password=Password;
         this.ID= ID;
+    }
+    
+    public UserModule(String username, String Password)
+    {
+        this.username= username;
+        this.password=Password;
     }
     
     public void setUsername(String username){
@@ -29,6 +36,11 @@ public class UserRegistration {
     {
         this.password=password;
     }
+    public void setCommand(String command)
+    {
+        this.command=command;
+    }
+    
     
     
     public String getUsername(){
@@ -39,5 +51,8 @@ public class UserRegistration {
     }
     public int getID(){
         return ID;
+    }
+    public String getCommand(){
+        return command;
     }
 }

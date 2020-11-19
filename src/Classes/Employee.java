@@ -9,65 +9,67 @@ package Classes;
  *
  * @author maiken
  */
-import java.util.Date;
+import java.time.*;
 import javafx.beans.property.SimpleStringProperty;
+import java.io.Serializable;
 
-public class Employee {
+
+public class Employee implements Serializable{
     
     private int ID;
-    private final SimpleStringProperty firstName;
-    private final SimpleStringProperty lastName;
-    private Date dob;
-    private final SimpleStringProperty address;
-    private final SimpleStringProperty phoneNumber;
-    private final SimpleStringProperty jobtitle;
-    private final SimpleStringProperty specialty;
+    private String firstName;
+    private String lastName;
+    private LocalDate dob;
+    private String address;
+    private String phoneNumber;
+    private String jobtitle;
+    private String specialty;
     
     
-    public Employee(int ID, String firstName, String lastName , Date dob, String address, String phoneNumber, String jobtitle, String specialty){
+    public Employee(int ID, String firstName, String lastName , LocalDate dob, String address, String phoneNumber, String jobtitle, String specialty){
         
         this.ID = ID;
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dob = dob;
-        this.address = new SimpleStringProperty(address);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.jobtitle = new SimpleStringProperty(jobtitle);
-        this.specialty = new SimpleStringProperty(specialty);
+        this.address = address;
+        this.phoneNumber =phoneNumber;
+        this.jobtitle = jobtitle;
+        this.specialty = specialty;
     }
     
-    public Employee(String firstName, String lastName , Date dob, String address, String phoneNumber, String jobtitle, String specialty){
+    public Employee(String firstName, String lastName , LocalDate dob, String address, String phoneNumber, String jobtitle, String specialty){
         
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dob = dob;
-        this.address = new SimpleStringProperty(address);
-        this.phoneNumber = new SimpleStringProperty(phoneNumber);
-        this.jobtitle = new SimpleStringProperty(jobtitle);
-        this.specialty = new SimpleStringProperty(specialty);
+        this.address =address;
+        this.phoneNumber = phoneNumber;
+        this.jobtitle = jobtitle;
+        this.specialty = specialty;
     }
     
     
     public void setFirstName(String firstName){
-        this.firstName.set(firstName);
+        this.firstName=firstName;
     }
-    public void setLastName(String department){
-        this.lastName.set(department);
+    public void setLastName(String lastname){
+        this.lastName= lastname;
     }
-    public void setDOB(Date dob){
+    public void setDOB(LocalDate dob){
         this.dob = dob;
     }
     public void setAddress(String address){
-        this.address.set(address);   
+        this.address=address;   
     }
      public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber.set(phoneNumber);   
+        this.phoneNumber = phoneNumber;   
     }
     public void setJobTitle(String title){
-        this.jobtitle.set(title);   
+        this.jobtitle = title;   
     }
     public void setSpecialty(String specialty){
-        this.specialty.set(specialty);   
+        this.specialty = specialty;   
     }
     
     
@@ -75,25 +77,25 @@ public class Employee {
         return ID;
     }
     public String getFirstName(){
-        return firstName.get();
+        return firstName;
     }
     public String getLastName(){
-        return lastName.get();
+        return lastName;
     }
     public String getAddress(){
-        return address.get();
+        return address;
     }
     public String getDOB(){
         return dob.toString();
     }
     public String getPhoneNumber(){
-        return phoneNumber.get();
+        return phoneNumber;
     } 
     public String getJobTitle(){
-        return jobtitle.get();
+        return jobtitle;
     }
     public String getSpecialty(){
-        return specialty.get();
+        return specialty;
     }
     
 }

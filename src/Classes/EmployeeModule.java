@@ -6,18 +6,19 @@
 package Classes;
 
 import javafx.util.*;
+import java.io.Serializable;
 /**
  *
  * @author maiken
  */
-public class EmployeeModule {
+public class EmployeeModule implements Serializable{
     private Employee employee; 
     private String command;
     
-    public EmployeeModule(Pair p)
+    public EmployeeModule(String c, Employee e)
     {
-        employee=(Employee) p.getValue();
-        command= (String)p.getKey();
+        employee=e;
+        command= c;
     }
     
     public Employee getEmployee(){
