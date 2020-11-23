@@ -11,7 +11,7 @@ import javafx.util.*;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.util.List;
 /**
  *
  * @author maiken
@@ -168,13 +168,7 @@ public class QueryRequest {
             myStmt.setString(3, p.getDOB().toString());
             myStmt.setString(4, p.getAddress());
             myStmt.setString(5, p.getPhoneNumber());
-            System.out.println(p.getFirstName());
-            System.out.println(p.getLastName());
-            System.out.println(p.getDOB());
-            System.out.println(p.getAddress());
-            System.out.println(p.getPhoneNumber());
            
-                
             int count = myStmt.executeUpdate();
             if(count>0)
             {
@@ -317,4 +311,5 @@ public class QueryRequest {
         }
         return verify;
     }
+    
 }

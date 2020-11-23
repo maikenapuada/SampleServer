@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package Classes;
-
+import java.io.Serializable;
 /**
  *
  * @author maiken
  */
-public class UserModule {
+public class UserModule implements Serializable{
     private String command;     //either log in or register
     private String username;
     private String password;
@@ -27,14 +27,16 @@ public class UserModule {
         this.username= username;
         this.password=Password;
     }
-    
     public void setUsername(String username){
         this.username=username;
     }
-    
     public void setPassword(String password)
     {
         this.password=password;
+    }
+    public void setID(int ID)
+    {
+        this.ID= ID;
     }
     public void setCommand(String command)
     {
